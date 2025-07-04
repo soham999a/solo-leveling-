@@ -241,7 +241,8 @@ const Login = () => {
           {error && error.includes('not authorized') && (
             <div className="mt-3 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
               <p className="text-yellow-400 text-sm text-center">
-                <strong>Note:</strong> Google sign-in is temporarily unavailable on this domain.
+                <strong>Note:</strong> Google sign-in is temporarily unavailable on this domain.<br/>
+                Domain: <code className="text-xs bg-yellow-800/30 px-1 rounded">{window.location.hostname}</code><br/>
                 Please use email sign-in or contact support.
               </p>
             </div>
