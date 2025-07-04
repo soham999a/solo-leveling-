@@ -1,0 +1,58 @@
+QUICK DEPLOYMENT COMMANDS
+========================
+
+📂 STEP 1: Navigate to your project folder
+------------------------------------------
+cd "C:\Users\code7\Desktop\Solo leveling\levelup-life"
+
+
+🔧 STEP 2: Initialize Git and push to GitHub
+--------------------------------------------
+git init
+git add .
+git commit -m "Initial commit: LevelUp Life productivity platform"
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+
+⚠️  REPLACE "YOUR_USERNAME" and "YOUR_REPO_NAME" with your actual GitHub details!
+
+Example:
+git remote add origin https://github.com/john123/levelup-life.git
+
+
+🚀 STEP 3: Deploy to Vercel
+---------------------------
+1. Go to: https://vercel.com/dashboard
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure:
+   - Framework: Vite
+   - Build Command: npm run build
+   - Output Directory: dist
+5. Add environment variables (see VERCEL_API_KEYS.txt)
+6. Click "Deploy"
+
+
+🔄 STEP 4: Future updates
+-------------------------
+git add .
+git commit -m "Your update description"
+git push origin main
+
+(Vercel will auto-deploy on push)
+
+
+📋 FILES TO CHECK:
+-----------------
+✅ .gitignore (protects secrets)
+✅ package.json (project config)
+✅ vercel.json (deployment config)
+✅ VERCEL_API_KEYS.txt (environment variables)
+✅ GITHUB_DEPLOYMENT_GUIDE.md (full instructions)
+
+
+🎯 YOUR APP WILL BE LIVE AT:
+----------------------------
+https://your-project-name.vercel.app
+
+Ready to deploy! 🚀
