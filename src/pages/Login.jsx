@@ -31,19 +31,14 @@ const Login = () => {
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
-    console.log('Email login clicked', { email, password });
-    alert('Login button clicked! Check console for details.');
 
     if (!email || !password) {
-      console.log('Missing email or password');
-      alert('Please enter both email and password');
       return;
     }
 
     setIsLoading(true);
     try {
       const result = await signInWithEmail(email, password);
-      console.log('Login result:', result);
 
       if (result.success) {
         navigate('/dashboard');
@@ -56,13 +51,10 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
-    console.log('Google login clicked');
-    alert('Google login button clicked!');
     setIsLoading(true);
 
     try {
       const result = await signInWithGoogle();
-      console.log('Google login result:', result);
 
       if (result.success) {
         navigate('/dashboard');
@@ -123,21 +115,7 @@ const Login = () => {
             </motion.div>
           )}
 
-          {/* Test Button */}
-          <button
-            onClick={() => alert('Test button works!')}
-            style={{
-              backgroundColor: 'red',
-              color: 'white',
-              padding: '10px',
-              border: 'none',
-              borderRadius: '5px',
-              marginBottom: '10px',
-              cursor: 'pointer'
-            }}
-          >
-            TEST CLICK
-          </button>
+
 
           <form onSubmit={handleEmailLogin} className="space-y-4" style={{ zIndex: 100, position: 'relative' }}>
             {/* Email Input */}
@@ -208,10 +186,7 @@ const Login = () => {
 
           {/* Google Login */}
           <button
-            onClick={(e) => {
-              console.log('Google button clicked!');
-              handleGoogleLogin();
-            }}
+            onClick={handleGoogleLogin}
             disabled={isLoading}
             style={{
               width: '100%',
