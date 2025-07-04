@@ -52,15 +52,37 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
+    setError('');
 
     try {
       const result = await signInWithGoogle();
 
+      if (result.redirecting) {
+        setError('Redirecting to Google...');
+        return;
+      }
+
       if (result.success) {
         navigate('/dashboard');
+      } else if (result.error) {
+        // Show more specific error messages
+        if (result.error.includes('unauthorized_domain') || result.error.includes('not authorized')) {
+          setError('This domain is not authorized for Google sign-in. Please try email sign-in or contact support.');
+        } else if (result.error.includes('popup-blocked')) {
+          setError('Popup was blocked. Please allow popups for this site and try again.');
+        } else if (result.error.includes('popup-closed-by-user')) {
+          setError('Sign-in was cancelled. Please try again.');
+        } else {
+          setError(result.error);
+        }
       }
     } catch (error) {
       console.error('Google login error:', error);
+      if (error.message && (error.message.includes('unauthorized_domain') || error.message.includes('not authorized'))) {
+        setError('This domain is not authorized for Google sign-in. Please try email sign-in or contact support.');
+      } else {
+        setError('Failed to sign in with Google. Please try again or use email sign-in.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -214,6 +236,16 @@ const Login = () => {
             </svg>
             <span>Continue with Google</span>
           </button>
+
+          {/* Domain Authorization Note */}
+          {error && error.includes('not authorized') && (
+            <div className="mt-3 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
+              <p className="text-yellow-400 text-sm text-center">
+                <strong>Note:</strong> Google sign-in is temporarily unavailable on this domain.
+                Please use email sign-in or contact support.
+              </p>
+            </div>
+          )}
 
           {/* Sign Up Link */}
           <div className="mt-6 text-center">

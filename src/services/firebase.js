@@ -27,6 +27,10 @@ googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
 
+// Add scopes for better user info
+googleProvider.addScope('profile');
+googleProvider.addScope('email');
+
 // Auth functions
 export const signInWithGoogle = async () => {
   try {
@@ -34,7 +38,7 @@ export const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     return { user: result.user, error: null };
   } catch (error) {
-    console.warn('Google sign-in error:', error.message);
+    console.warn('Google sign-in error:', error.code, error.message);
 
     // If popup is blocked, try redirect method
     if (error.code === 'auth/popup-blocked') {
@@ -54,6 +58,10 @@ export const signInWithGoogle = async () => {
       userMessage += 'Sign-in was cancelled.';
     } else if (error.code === 'auth/network-request-failed') {
       userMessage += 'Network error. Please check your connection.';
+    } else if (error.code === 'auth/unauthorized-domain') {
+      userMessage += 'This domain is not authorized for Google sign-in. Please try email sign-in.';
+    } else if (error.message && error.message.includes('unauthorized_domain')) {
+      userMessage += 'This domain is not authorized for Google sign-in. Please try email sign-in.';
     } else {
       userMessage += 'Please try again or use email sign-in.';
     }
